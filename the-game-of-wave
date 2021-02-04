@@ -1,0 +1,72 @@
+/* https://www.hackerrank.com/contests/sda-2020-2021-test5-trgdcw/challenges/challenge-2711 */
+
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <queue>
+#include <climits>
+using namespace std;
+
+int N, M, X, Y, R;
+vector<vector<bool>> visited;
+
+void bfs(vector<vector<int>>& matrix) {
+	int sum = 0;
+	queue<pair<int, int>> toVisit;
+
+	toVisit.push({ X - 1,Y - 1});
+	toVisit.push({ INT_MIN, 1 }); //mark the level with INT_MIN
+	visited[X - 1][Y - 1] = true;
+
+	while (!toVisit.empty()) {
+		pair<int, int> pos = toVisit.front();
+		toVisit.pop();
+		if (pos.first == INT_MIN) {
+			if (pos.second == R - 1)
+				break;
+			if (!toVisit.empty())
+				toVisit.push({ INT_MIN,pos.second + 1 });
+			continue;
+		}
+		if (pos.first + 1 < N && matrix[pos.first + 1][pos.second] != -1 && !visited[pos.first + 1][pos.second]) {
+			toVisit.push({ pos.first + 1,pos.second });
+			visited[pos.first + 1][pos.second] = true;
+		}
+		if (pos.first - 1 >= 0 && matrix[pos.first - 1][pos.second] != -1 && !visited[pos.first - 1][pos.second]) {
+			toVisit.push({ pos.first - 1,pos.second });
+			visited[pos.first - 1][pos.second] = true;
+		}
+		if (pos.second + 1 < M && matrix[pos.first][pos.second + 1] != -1 && !visited[pos.first][pos.second + 1]) {
+			toVisit.push({ pos.first,pos.second + 1 });
+			visited[pos.first][pos.second + 1] = true;
+		}
+		if (pos.second - 1 >= 0 && matrix[pos.first][pos.second - 1] != -1 && !visited[pos.first][pos.second - 1]) {
+			toVisit.push({ pos.first,pos.second - 1 });
+			visited[pos.first][pos.second - 1] = true;
+		}
+	}
+	while (!toVisit.empty()) {
+		int x = toVisit.front().first, y = toVisit.front().second;
+		sum += matrix[x][y];
+		toVisit.pop();
+	}
+	cout << sum;
+}
+int main() {
+	cin >> N >> M;
+	vector<vector<int>> matrix(N);
+	visited.resize(N);
+	for (int i = 0; i < N; i++) {
+		matrix[i].resize(M);
+		visited[i].resize(M);
+		for (int j = 0; j < M; j++) {
+			cin >> matrix[i][j];
+			visited[i][j] = false;
+		}
+	}
+	cin >> X >> Y >> R;
+	bfs(matrix);
+	return 0;
+}
