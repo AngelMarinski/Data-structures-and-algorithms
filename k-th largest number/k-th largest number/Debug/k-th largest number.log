@@ -1,3 +1,0 @@
-﻿  largestNum.cpp
-C:\Users\angel\source\repos\k-th largest number\k-th largest number\largestNum.cpp(33,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  k-th largest number.vcxproj -> C:\Users\angel\source\repos\k-th largest number\Debug\k-th largest number.exe
