@@ -9,7 +9,7 @@ async function main() {
         //    user: 'postgres',
         //    host: 'localhost',
         //    database: 'postgres',
-        //    password: 'shtora123',
+        //    password: 'postgres',
         //    port: 5432,
         //});
         //await client.connect();
